@@ -1,4 +1,3 @@
-// 錯誤處理的 module
 function errorHandler(res) {
   const headers = {
 		'Access-Control-Allow-Headers':
