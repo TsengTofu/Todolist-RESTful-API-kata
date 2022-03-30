@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/TsengTofu/Todolist-RESTful-API-kata/issues"
   },
-  "homepage": "https://github.com/TsengTofu/Todolist-RESTful-API-kata#readme"
+  "homepage": "https://github.com/TsengTofu/Todolist-RESTful-API-kata#readme",
+  "dependencies": {
+    "uuid": "^8.3.2"
+  },
+  "engines": {
+    "node": "16.x"
+  }
 }
