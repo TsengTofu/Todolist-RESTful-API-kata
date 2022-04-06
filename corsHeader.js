@@ -1,4 +1,4 @@
-const headers = {
+const corsHeader = {
 	'Access-Control-Allow-Headers':
 		'Content-Type, Authorization, Content-Length, X-Requested-With',
 	'Access-Control-Allow-Origin': '*',
@@ -6,4 +6,4 @@ const headers = {
 	'Content-Type': 'application/json',
 };
 
-module.exports = headers;
+module.exports = corsHeader;
