@@ -1,16 +1,9 @@
 const http = require('http');
 const { v4: uuidv4 } = require('uuid');
 const errorHandler = require('./errorHandler');
-
+const successHandler = require('./successHandler');
+const headers = require('./corsHeader');
 const todos = [];
-const headers = {
-	'Access-Control-Allow-Headers':
-		'Content-Type, Authorization, Content-Length, X-Requested-With',
-	'Access-Control-Allow-Origin': '*',
-	'Access-Control-Allow-Methods': 'PATCH, POST, GET,OPTIONS,DELETE',
-	'Content-Type': 'application/json',
-};
-
 const requestListener = (req, res) => {
 	let body = '';
 	req.on('data', (chunk) => {
@@ -18,13 +11,10 @@ const requestListener = (req, res) => {
 	});
 
 	if (req.url === '/todos' && req.method === 'GET') {
-		res.writeHead(200, headers);
-		res.write(JSON.stringify({ status: 'success', data: todos }));
-		res.end();
+    successHandler(res, todos);
 	} else if (req.url === '/todos' && req.method === 'POST') {
 		req.on('end', () => {
 			try {
-				res.writeHead(200, headers);
 				const clientData = JSON.parse(body);
 				const { title } = clientData;
 				if (title !== undefined) {
@@ -33,10 +23,7 @@ const requestListener = (req, res) => {
 						id: uuidv4(),
 					};
 					todos.push(tempNewToDo);
-					res.write(
-						JSON.stringify({ status: 'success', data: todos })
-					);
-					res.end();
+          successHandler(res, todos);
 				} else {
 					errorHandler(res);
 				}
@@ -46,15 +33,7 @@ const requestListener = (req, res) => {
 		});
 	} else if (req.url === '/todos' && req.method === 'DELETE') {
 		todos.length = 0;
-		res.writeHead(200, headers);
-		res.write(
-			JSON.stringify({
-				status: 'success',
-				data: [],
-				delete: 'yes',
-			})
-		);
-		res.end();
+    successHandler(res, todos);
 	} else if (req.url.startsWith('/todos/') && req.method === 'DELETE') {
 		const targetId = req.url.split('/').pop();
 		const targetIndex = todos.findIndex(
@@ -62,15 +41,7 @@ const requestListener = (req, res) => {
 		);
 		if (targetIndex !== -1) {
 			todos.splice(targetIndex, 1);
-			res.writeHead(200, headers);
-			res.write(
-				JSON.stringify({
-					status: 'success',
-					data: todos,
-					delete: 'yes',
-				})
-			);
-			res.end();
+			successHandler(res, todos);
 		} else {
 			errorHandler(res);
 		}
@@ -87,16 +58,7 @@ const requestListener = (req, res) => {
 
 				if (targetIndex !== -1 && title !== undefined) {
 					todos[targetIndex].title = title;
-					res.writeHead(200, headers);
-					res.write(
-						JSON.stringify({
-							status: 'success',
-							data: todos,
-							delete: 'yes',
-						})
-					);
-
-					res.end();
+					successHandler(res, todos);
 				} else {
 					errorHandler(res);
 				}
