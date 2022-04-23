@@ -1,5 +1,6 @@
 //  NOTE  這邊開始是新的
 //  TODO  要記得寫 Repository 的 readme，補上每個版本號代表的作業週數
+// 回來的時候，記得先把用端刪除，剛推的 commit 只是為了備份
 const http = require('http');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
