@@ -1,10 +1,9 @@
 const headers = require('./corsHeader');
-
-function errorHandler(res, message) {  
+function errorHandler(res) {  
   res.writeHead(400, headers);
   res.write(JSON.stringify({
     "status": "fail",
-    "message": message,
+    "message": "欄位未填寫正確，或無此待辦事項" 
   }));
   res.end();
 };
