@@ -1,7 +1,3 @@
-//  NOTE  這邊開始是新的
-//  TODO  要記得寫 Repository 的 readme，補上每個版本號代表的作業週數
-// 這邊可以捨棄 uuid
-// 回來的時候，記得先把用端刪除，剛推的 commit 只是為了備份
 const http = require('http');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
@@ -9,8 +5,6 @@ const getAllPostAPI = require('./Routes/getAllPostAPI'); // GET
 const createPostAPI = require('./Routes/createPostAPI'); // POST
 const deletePostAPI = require('./Routes/deletePostAPI'); // DELETE
 const updatePostAPI = require('./Routes/updatePostAPI'); // PATCH
-
-
 
 dotenv.config();
 // 資料庫位置
@@ -33,9 +27,7 @@ const headers = {
 
 const requestListener = async (req, res) => {
  
-  // 判斷路由後，需要對 MongoDB 執行的操作
   if (req.url.startsWith('/posts') && req.method === 'GET') {
-    // 取得全部貼文 API - GET
     //  ASK  這邊也需要 try catch？get 也有可能會出錯
     getAllPostAPI(req, res, headers);
   } else if (req.url === '/posts' && req.method === 'POST') {
