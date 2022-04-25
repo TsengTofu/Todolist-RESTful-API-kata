@@ -1,11 +1,16 @@
 //  NOTE  這邊開始是新的
 //  TODO  要記得寫 Repository 的 readme，補上每個版本號代表的作業週數
+// 這邊可以捨棄 uuid
 // 回來的時候，記得先把用端刪除，剛推的 commit 只是為了備份
 const http = require('http');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const getAllPostAPI = require('./Routes/getAllPostAPI');
-const createAPostAPI = require('./Routes/createAPostAPI');
+const getAllPostAPI = require('./Routes/getAllPostAPI'); // GET
+const createPostAPI = require('./Routes/createPostAPI'); // POST
+const deletePostAPI = require('./Routes/deletePostAPI'); // DELETE
+const updatePostAPI = require('./Routes/updatePostAPI'); // PATCH
+
+
 
 dotenv.config();
 // 資料庫位置
@@ -27,27 +32,20 @@ const headers = {
 };
 
 const requestListener = async (req, res) => {
-  let body = '';
-  req.on('data', (chunk) => {
-    body += chunk;
-  });
+ 
   // 判斷路由後，需要對 MongoDB 執行的操作
   if (req.url.startsWith('/posts') && req.method === 'GET') {
     // 取得全部貼文 API - GET
     //  ASK  這邊也需要 try catch？get 也有可能會出錯
-    console.log('GET 取得全部貼文資料 API');
     getAllPostAPI(req, res, headers);
   } else if (req.url === '/posts' && req.method === 'POST') {
-    // 新增貼文 API - POST
-    console.log('POST 新增一筆貼文資料 API');
-    createAPostAPI(req, res, headers);
+    createPostAPI(req, res, headers);
   } else if (req.url === '/posts' && req.method === 'DELETE') {
-    // DELETE ALL
-
+    deletePostAPI(req, res, 'all');
   } else if (req.url.startsWith('/posts/') && req.method === 'DELETE') {
-    // DELETE ONE
+    deletePostAPI(req, res, 'single');
   } else if (req.url.startsWith('/posts/') && req.method === 'PATCH') {
-    // PATCH ONE
+    updatePostAPI(req, res);
   } else if (req.method === 'OPTIONS') {
     res.writeHead(200, headers);
     res.end();
@@ -60,80 +58,3 @@ const requestListener = async (req, res) => {
 
 const server = http.createServer(requestListener);
 server.listen(process.env.PORT || 3005);
-
-
-
-
-
-//  TODO  這段是舊的，要先註解掉
-// const requestListener = (req, res) => {
-// 	let body = '';
-// 	req.on('data', (chunk) => {
-// 		body += chunk;
-// 	});
-
-// 	if (req.url === '/todos' && req.method === 'GET') {
-//     successHandler(res, todos);
-// 	} else if (req.url === '/todos' && req.method === 'POST') {
-		// req.on('end', () => {
-		// 	try {
-		// 		const clientData = JSON.parse(body);
-		// 		const { title } = clientData;
-		// 		if (title !== undefined) {
-		// 			const tempNewToDo = {
-		// 				title: title,
-		// 				id: uuidv4(),
-		// 			};
-		// 			todos.push(tempNewToDo);
-    //       successHandler(res, todos);
-		// 		} else {
-		// 			errorHandler(res);
-		// 		}
-		// 	} catch (error) {
-		// 		errorHandler(res);
-		// 	}
-		// });
-// 	} else if (req.url === '/todos' && req.method === 'DELETE') {
-// 		todos.length = 0;
-//     successHandler(res, todos);
-// 	} else if (req.url.startsWith('/todos/') && req.method === 'DELETE') {
-// 		const targetId = req.url.split('/').pop();
-// 		const targetIndex = todos.findIndex(
-// 			(element) => element.id === targetId
-// 		);
-// 		if (targetIndex !== -1) {
-// 			todos.splice(targetIndex, 1);
-// 			successHandler(res, todos);
-// 		} else {
-// 			errorHandler(res);
-// 		}
-// 	} else if (req.url.startsWith('/todos/') && req.method === 'PATCH') {
-// 		req.on('end', () => {
-// 			try {
-// 				const targetId = req.url.split('/').pop();
-// 				const targetIndex = todos.findIndex(
-// 					(element) => element.id === targetId
-// 				);
-
-// 				const clientData = JSON.parse(body);
-// 				const { title } = clientData;
-
-// 				if (targetIndex !== -1 && title !== undefined) {
-// 					todos[targetIndex].title = title;
-// 					successHandler(res, todos);
-// 				} else {
-// 					errorHandler(res);
-// 				}
-// 			} catch (error) {
-// 				errorHandler(res);
-// 			}
-// 		});
-// 	} else if (req.method === 'OPTIONS') {
-// 		res.writeHead(200, headers);
-// 		res.end();
-// 	} else {
-// 		res.writeHead(404, headers);
-// 		res.write(JSON.stringify({ status: 'fail', data: '無此網站路由' }));
-// 		res.end();
-// 	}
-// };

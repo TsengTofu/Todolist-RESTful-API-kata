@@ -23,12 +23,12 @@ const getAllPostAPI = async (req, res, headers) => {
         content_message: { $regex: `${contentKeyword}` },
         user_name: { $regex: `${nameKeyword}` },
       });
-      successResponse(res, headers, pureData);
+      successResponse(res, pureData);
     }
   } else {
     // 單純撈資料
     const allData = await PostModel.find();
-    successResponse(res, headers, allData);
+    successResponse(res, allData);
   }
 };
 module.exports = getAllPostAPI;

@@ -1,5 +1,7 @@
-const successResponse = (res, headers, data) => {
-  // 這邊可以客製化要傳遞的訊息
+const headers = require('./corsHeader');
+const successResponse = (res, data) => {
+  //  TODO  這邊可以客製化要傳遞的訊息
+  console.log(data, 'xxx');
   res.writeHead(200, headers);
   res.write(JSON.stringify(
     {
