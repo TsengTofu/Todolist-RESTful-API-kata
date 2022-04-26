@@ -17,9 +17,17 @@
   },
   "homepage": "https://github.com/TsengTofu/Todolist-RESTful-API-kata#readme",
   "dependencies": {
-    "uuid": "^8.3.2"
+    "mongoose": "^6.3.1",
+    "dotenv": "^16.0.0"
   },
   "engines": {
     "node": "16.x"
+  },
+  "devDependencies": {
+    "eslint": "^8.14.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "prettier": "^2.6.2",
+    "prettier-eslint": "^14.0.0"
   }
 }
