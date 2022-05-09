@@ -1,0 +1,146 @@
+{
+	"info": {
+		"_postman_id": "4963fe6c-e642-4028-9a74-4e6b99c37be5",
+		"name": "HexSchool Week3 Mission",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "取得所有貼文",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://tofu-node-js-mission.herokuapp.com/posts",
+					"protocol": "https",
+					"host": [
+						"tofu-node-js-mission",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					],
+					"query": [
+						{
+							"key": "nameKeyword",
+							"value": "豆腐",
+							"disabled": true
+						},
+						{
+							"key": "contentKeyword",
+							"value": "母親",
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": "asc",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "新增一則貼文",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userName\": \"嚕米\",\n    \"userImage\": \"https://www.niusnews.com/upload/imgs/default/16JulP/0722BB/7.png\",\n    \"contentMessage\": \"我不是河馬\",\n    \"contentImage\": \"拉拉\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://tofu-node-js-mission.herokuapp.com/posts",
+					"protocol": "https",
+					"host": [
+						"tofu-node-js-mission",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "編輯一則貼文",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"contentMessage\": \"齁齁齁!!\",\n    \"contentImage\": \"媽媽我愛你\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://tofu-node-js-mission.herokuapp.com/posts/627923f3db3494735e4feac8",
+					"protocol": "https",
+					"host": [
+						"tofu-node-js-mission",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts",
+						"627923f3db3494735e4feac8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "刪除一則貼文",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://tofu-node-js-mission.herokuapp.com/posts/627923f3db3494735e4feac8",
+					"protocol": "https",
+					"host": [
+						"tofu-node-js-mission",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts",
+						"627923f3db3494735e4feac8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "刪除所有貼文",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://tofu-node-js-mission.herokuapp.com/posts",
+					"protocol": "https",
+					"host": [
+						"tofu-node-js-mission",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
