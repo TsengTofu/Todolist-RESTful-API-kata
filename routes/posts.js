@@ -4,7 +4,7 @@
 //  ASK  bin 資料夾裡程式碼的用途
 const express = require('express');
 const router = express.Router();
-const PostController = require('../controller/post/index');
+const PostController = require('../controller/Post/index');
 
 router.get('/', PostController.get);
 router.post('/', PostController.create);
