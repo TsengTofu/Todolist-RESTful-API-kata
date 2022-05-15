@@ -6,7 +6,6 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 const path = require('path');
 const dotenv = require('dotenv');
 
@@ -30,12 +29,14 @@ const indexRouter = require('./routes/index');
 const postsRouter = require('./routes/posts');
 
 const app = express();
-
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/', indexRouter);
+app.use('/posts', postsRouter);
 
 /**
  * 處理 bodyParser 解析失敗的錯誤：
@@ -48,8 +49,5 @@ app.use((err, req, res, callback) => {
 	res.send(err.type);
 	res.sendStatus(400);
 });
-
-app.use('/', indexRouter);
-app.use('/posts', postsRouter);
 
 module.exports = app;

@@ -1,4 +1,4 @@
-const PostModel = require('../../Models/post');
+const PostModel = require('../../models/post');
 
 const sortConstantConfig = ['asc', 'desc'];
 const getAllPostAPI = async (req, res) => {
