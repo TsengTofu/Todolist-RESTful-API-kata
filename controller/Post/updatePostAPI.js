@@ -1,6 +1,7 @@
-const PostModel = require('../../Models/post');
+const PostModel = require('../../models/post');
 
 const updatePostAPI = async (req, res) => {
+	console.log('updatePostAPI');
 	try {
 		const postContentData = req.body;
 		const targetId = req.params.id;
