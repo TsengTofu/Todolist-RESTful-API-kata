@@ -18,6 +18,7 @@ const updatePostAPI = async (req, res) => {
 					data: updateResult,
 				};
 				res.status(400).send(finalData);
+				return;
 			}
 			// 更新結果
 			const targetData = await PostModel.findById(targetId);
@@ -33,6 +34,7 @@ const updatePostAPI = async (req, res) => {
 				data: null,
 			};
 			res.status(400).send(finalData);
+			return;
 		}
 	} catch (error) {
 		const finalData = {

@@ -23,6 +23,7 @@ const createPostAPI = async (req, res) => {
 				data: null,
 			};
 			res.status(400).send(finalData);
+			return;
 		}
 	} catch (error) {
 		const finalData = {

@@ -13,6 +13,7 @@ const deletePostAPI = async (req, res) => {
 					data: null,
 				};
 				res.status(400).send(finalData);
+				return;
 			} else {
 				const finalData = {
 					message: '刪除成功！',
